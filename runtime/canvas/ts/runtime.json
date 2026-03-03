@@ -1,0 +1,17 @@
+{
+  "system_modules": {
+    "Scribble.Tileset": { "path": "scribble/tileset", "stateful": true },
+    "Scribble.Tilemap": { "path": "scribble/tilemap", "stateful": true },
+    "Scribble.Map": { "path": "scribble/map", "stateful": true },
+    "Scribble.Layer": { "path": "scribble/layer", "stateful": true },
+    "Scribble.Camera": { "path": "scribble/camera", "stateful": true },
+    "Scribble.Entity": { "path": "scribble/entity", "stateful": true },
+    "Scribble.Animation": { "path": "scribble/animation", "stateful": true },
+    "Scribble.Spatial": { "path": "scribble/spatial", "stateful": true },
+    "Scribble.Render": { "path": "scribble/render" }
+  },
+  "scaffold": {
+    "imports": [{ "names": ["createCanvasRuntime"], "path": "scribble/runtime" }],
+    "entry": "createCanvasRuntime({canvasId}).start();"
+  }
+}

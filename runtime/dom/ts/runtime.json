@@ -1,0 +1,11 @@
+{
+  "system_modules": {
+    "Scribble.Graph": { "path": "scribble/graph", "stateful": true },
+    "Scribble.Node": { "path": "scribble/node" },
+    "Scribble.Projection": { "path": "scribble/projection" }
+  },
+  "scaffold": {
+    "imports": [{ "names": ["createDomRuntime"], "path": "scribble/runtime" }],
+    "entry": "createDomRuntime().start({rootNode});"
+  }
+}

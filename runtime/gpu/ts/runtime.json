@@ -1,0 +1,9 @@
+{
+  "system_modules": {
+    "Scribble.Gpu": { "path": "scribble/runtime", "stateful": true }
+  },
+  "scaffold": {
+    "imports": [{ "names": ["createGpuRuntime"], "path": "scribble/runtime" }],
+    "entry": "createGpuRuntime({canvasId}).start();"
+  }
+}
