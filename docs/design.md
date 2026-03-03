@@ -176,4 +176,4 @@ The process is the artifact. A scribble project isn't just the final state — i
 
 **Export on demand.** The log is the canonical home. Disk export is for taking something out of scribble (share a sprite, use it elsewhere) — not a continuous sync target.
 
-**Animation as a first-class asset type.** The keyframe system isn't just for game sprites — cursors, pngtubers, reaction images, anything time-based. Aseprite is prior art and a potential reincarnate frontend target (`.ase`/`.aseprite` format lifting).
+**Animation as a first-class asset type.** The keyframe system isn't just for game sprites — cursors, pngtubers, reaction images, anything time-based. Aseprite is the quality bar for scribble's image/animation editor — not a target to lift from, but a goal to reach.
