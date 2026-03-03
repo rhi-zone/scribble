@@ -154,10 +154,10 @@ Graph.link(from, to, edge_type)
 
 ## Serialization Format
 
-**Project file: append-only event log.** Never compacted — the log is the truth. Snapshots are derived cached read-points, throwaway. Full history, time-travel, undo back to the beginning. The process is the artifact.
+**Project file: append-only event log.** Never compacted — the log is the truth. Snapshots are derived cached read-points, throwaway. Full history, time-travel, undo back to the beginning. Crash safety and cross-session undo come free. The process is the artifact — you can replay how something was built, branch from any point.
 
-**Assets: content-addressed files.** Referenced by opaque ID (format agnostic — content hash on disk, index in memory, UUID over network). Resolution is a runtime concern. Assets replaced atomically.
+**Assets: content-addressed files.** Referenced by opaque ID — format agnostic by design (content hash on disk, index in memory, UUID over network). The format stores IDs, resolution is a runtime concern. This means renames don't break references, deduplication is automatic, and assets can be replaced atomically.
 
-**Binary format: fixed-size structs.** Strings interned into a string table — inline strings make structs dynamically sized, interning keeps everything aligned and predictable. Deduplication free bonus.
+**Binary format: fixed-size structs.** Inline strings make structs dynamically sized, which complicates alignment and array indexing. Interning into a string table keeps structs fixed-size, predictable, and deduplication is a free bonus. Zerocopy-friendly on native; web pays a deserialization step regardless, so no downside.
 
-**Versioning** considered from the start — zerocopy-friendly layout but with enough forward-compat headroom for schema evolution.
+**Versioning** considered from the start — zerocopy-friendly layout but with enough forward-compat headroom for schema evolution. The append-only log also helps here: old events are never rewritten, new event types just get added.
