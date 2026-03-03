@@ -154,7 +154,9 @@ Graph.link(from, to, edge_type)
 
 ## Serialization Format
 
-**Project file: append-only event log.** Never compacted — the log is the truth. Snapshots are derived cached read-points, throwaway. Full history, time-travel, undo back to the beginning. Crash safety and cross-session undo come free. The process is the artifact — you can replay how something was built, branch from any point.
+**Project file: append-only event log.** Never compacted — the log is the truth. Snapshots are derived cached read-points, throwaway. Full history, time-travel, undo back to the beginning. Crash safety and cross-session undo come free.
+
+The process is the artifact. A scribble project isn't just the final state — it's every decision, revision, and wrong turn that produced it. You can replay how a level was built, see where an idea came from, branch from any point in history. The log *is* the creative work, not just a means of storing it.
 
 **Assets: content-addressed files.** Referenced by opaque ID — format agnostic by design (content hash on disk, index in memory, UUID over network). The format stores IDs, resolution is a runtime concern. This means renames don't break references, deduplication is automatic, and assets can be replaced atomically.
 
