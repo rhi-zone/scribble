@@ -4,7 +4,7 @@
 
 A sketch-level creative environment for games, art, notes, and interactive pieces. The boundary between editor and runtime dissolves — draw a 9-patch inside the running game and see it update live.
 
-Prior art: PICO-8, PuzzleScript, Sokpop Collective, RPG in a Box, Blockbench, Fontforge.
+Prior art: PICO-8, PuzzleScript, Sokpop Collective, RPG in a Box, Blockbench, Fontforge, Aseprite.
 
 ## Architecture
 
@@ -163,3 +163,17 @@ The process is the artifact. A scribble project isn't just the final state — i
 **Binary format: fixed-size structs.** Inline strings make structs dynamically sized, which complicates alignment and array indexing. Interning into a string table keeps structs fixed-size, predictable, and deduplication is a free bonus. Zerocopy-friendly on native; web pays a deserialization step regardless, so no downside.
 
 **Versioning** considered from the start — zerocopy-friendly layout but with enough forward-compat headroom for schema evolution. The append-only log also helps here: old events are never rewritten, new event types just get added.
+
+## Asset Pipeline
+
+**No processing step.** Drop an asset in, it's immediately usable. No import pipeline, no bake, no explicit processing the user has to run — that's a barrier to entry. The runtime may bake transparently (mipmap generation, atlas packing) but this is never the user's concern.
+
+**Content-addressed storage.** Assets imported from disk are hashed on import, stored by hash, referenced by opaque ID. Interpretation (tile size, frame count, etc.) is the runtime's job, not the asset's.
+
+**Hot-reloading.** Modify an asset on disk, the runtime picks it up automatically. Live-editing ethos applied to external assets.
+
+**Assets created in-app** go straight into the log as events — no round-trip through disk. Their binary data is stored alongside the log. The content-addressed store is for external assets brought in; native scribble assets are log-native from the start.
+
+**Export on demand.** The log is the canonical home. Disk export is for taking something out of scribble (share a sprite, use it elsewhere) — not a continuous sync target.
+
+**Animation as a first-class asset type.** The keyframe system isn't just for game sprites — cursors, pngtubers, reaction images, anything time-based. Aseprite is prior art and a potential reincarnate frontend target (`.ase`/`.aseprite` format lifting).
