@@ -1,3 +1,9 @@
 [workspace]
-members = ["crates/scribble-core"]
+members = [
+    "crates/scribble-engine",
+    "crates/scribble-cli",
+]
 resolver = "2"
+
+[workspace.dependencies]
+reincarnate-core = { git = "https://github.com/rhi-zone/reincarnate" }

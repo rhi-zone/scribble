@@ -1,0 +1,7 @@
+[package]
+name = "scribble-engine"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+reincarnate-core = { workspace = true }
