@@ -118,6 +118,12 @@ query_ray(origin, dir, layer_mask) → Option<Hit>
 ### Audio / Input
 Thin shims over reincarnate's existing `Audio` and `Input` traits. `Audio` adds `play_sfx` / `play_music` as convenience distinctions.
 
+## Crate Structure
+
+- **`scribble-engine`** — Rust runtime stdlib. Implements scribble's SystemCall ops natively, built on top of reincarnate-core's platform traits (`Graphics`, `Audio`, `Input`, `Timing`, etc. in `reincarnate_core::system`). Stub for now — meaningful once reincarnate has a Rust codegen backend.
+- **`scribble-cli`** — Packaging, running, exporting scribble projects.
+- **`runtime/dom/ts/`**, **`runtime/canvas/ts/`**, **`runtime/gpu/ts/`** — TypeScript runtime libraries. Primary deliverable. Follow reincarnate's three-layer pattern (engine shims → platform interface → platform implementation).
+
 ## Proof of Concept: VS-like
 
 Demonstrates that "sketch-level" doesn't mean "slow." A Vampire Survivors-like built in scribble:
