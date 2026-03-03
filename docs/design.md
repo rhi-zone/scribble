@@ -131,3 +131,33 @@ Demonstrates that "sketch-level" doesn't mean "slow." A Vampire Survivors-like b
 ## Algorithms (built on top of primitives, not part of runtime)
 
 WFC, tileset connectivity/auto-tiling, pathfinding, physics — these are pure logic operating on tilemaps and spatial data. Backend-agnostic, shared across runtimes, implemented by the app or as optional utility libraries.
+
+## Document / Notes Primitives
+
+Documents are graphs, not trees. Nodes can have multiple parents, cycles, arbitrary connections.
+
+**Nodes** are discriminated unions — the tag determines what it is (text, heading, link, embed, code block, or any app-defined type). The runtime dispatches to registered renderers per tag.
+
+**Multiple renderers per node type** — same node renders differently in different contexts. A code block is syntax-highlighted in reading mode, editable in edit mode, collapsed in graph view.
+
+**Two-phase rendering** — projections call `measure(node) → Size` for all nodes to derive scroll geometry, then `render(node, bounds)` only for visible nodes. The runtime handles culling.
+
+**Projections** (grid, list, flow, etc.) are stdlib, not core. The core provides the two-phase protocol and viewport/culling. Stdlib ships grid/list/flow built on that protocol. User-defined projections implement the same protocol — no special privileges.
+
+Core ops:
+```
+Node.register(tag, context, renderer)
+Graph.render(graph, root, context)
+Graph.query(graph, predicate) → [NodeId]
+Graph.link(from, to, edge_type)
+```
+
+## Serialization Format
+
+**Project file: append-only event log.** Never compacted — the log is the truth. Snapshots are derived cached read-points, throwaway. Full history, time-travel, undo back to the beginning. The process is the artifact.
+
+**Assets: content-addressed files.** Referenced by opaque ID (format agnostic — content hash on disk, index in memory, UUID over network). Resolution is a runtime concern. Assets replaced atomically.
+
+**Binary format: fixed-size structs.** Strings interned into a string table — inline strings make structs dynamically sized, interning keeps everything aligned and predictable. Deduplication free bonus.
+
+**Versioning** considered from the start — zerocopy-friendly layout but with enough forward-compat headroom for schema evolution.
