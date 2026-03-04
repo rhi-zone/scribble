@@ -183,3 +183,5 @@ The process is the artifact. A scribble project isn't just the final state — i
 **Export on demand.** The log is the canonical home. Disk export is for taking something out of scribble (share a sprite, use it elsewhere) — not a continuous sync target.
 
 **Animation as a first-class asset type.** The keyframe system isn't just for game sprites — cursors, pngtubers, reaction images, anything time-based. Aseprite is the quality bar for scribble's image/animation editor — not a target to lift from, but a goal to reach.
+
+**Audio as a first-class asset type.** MIDI sequences, synth patches, samples, tracker patterns — authored inside scribble, not imported from external tools. The audio editor (tracker/DAW/synth) is another editor frontend targeting the same append-only log. Quality bar: you'd reach for it for game music and sfx authoring, not just playback.
