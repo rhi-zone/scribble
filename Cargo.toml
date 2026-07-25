@@ -7,3 +7,6 @@ resolver = "2"
 
 [workspace.dependencies]
 reincarnate-core = { git = "https://github.com/rhi-zone/reincarnate" }
+
+[profile.dev]
+debug = 0
